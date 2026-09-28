@@ -36,3 +36,9 @@ Cambiaría la firma a `def recorrer_columnas(rol="docente")`, o mejor, definirí
 **Dónde:** diccionario `columnas` en `src/funciones.py`. No se modificó ninguna función.
 **Cómo lo probé:** ejecutando todo el notebook. Se termina mostrando esta columna solo cuando no se especifica el rol y en el rol auditor, ya que tiene todas las columnas.
 **Por qué:** los roles tienen listas de columnas escritas a mano, por lo que solo muestran lo que nombran. El informe sin rol usa `list(columnas)` y toma todas las que existen. Separar el catálogo de columnas de la configuración de roles evita que una columna nueva quede visible para un rol sin que nadie lo decida.
+
+## Modificación 3: filter() y map()
+**Pedido:** usar las funciones `filter()` y `map()`
+**Dónde:** funciones `organizar_lista()` e `imprimir()` en `src/funciones.py`. No se modificó ninguna función porque ya los tenía.
+**Cómo lo probé:** ejecutando todo el notebook. Se termina mostrando todo correctamente.
+**Observación:** 
