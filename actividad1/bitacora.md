@@ -12,13 +12,15 @@ Lo garantizo al haber hecho la función recorrer_columnas de forma genérica par
 Principio de separación de responsabilidades y desacoplamiento: permite modificar, agregar o quitar roles y reglas sin necesidad de editar la función que procesa los datos.
 
 5) ¿Qué parámetros se pueden definir con valores por defecto?
-El parámetro rol en la firma de la función, permitiendo que si no se envía ningún argumento, se aplique automáticamente el reporte general por completitud descendente.
+- `rol=None` en `recorrer_columnas`: si no se indica rol, se informan todas las columnas por completitud descendente, que es lo que pide la consigna.
+- `criterio="completitud"`, `forma=True` (descendente) y `porcentaje_minimo=None` (sin filtro) en `organizar_lista`. Son los mismos valores que la consigna define para el caso sin rol, por lo que el informe general se obtiene llamando a la función solo con la lista de columnas.
+- En `buscar_columnas_rol`, uso `.get()` con valor por defecto para `criterio`, `forma` y `porcentaje_minimo`. Así, un rol que no los defina no rompe el programa con un `KeyError`, sino que usa los valores por defecto.
 
 6) Si agregás una nueva columna al dataset, ¿en qué partes del código impacta? ¿Y si solo se quiere que un rol existente incluya esa nueva columna?
 Si se agrega una columna, solo impacta en el diccionario columnas. Si se desea que un rol la vea, únicamente se agrega su nombre a la lista "columnas" dentro de dicho rol en roles. La función no se modifica en ningún caso.
 
-7) ¿Qué pasaría si un rol tuviera un criterio de orden distinto a los especificados "nombre" o "completitud" (por ejemplo, "promedio")? ¿Cómo lo detectarías y qué harías para que el programa no falle?
-Se puede validar con un condicional (if criterio not in ["nombre", "completitud"]:) y aplicar un criterio por defecto como ordenar por completitud descendente o lanzar un mensaje advirtiendo que el criterio no es soportado.
+7) ¿Qué pasaría si un rol tuviera un criterio de orden distinto a "nombre" o "completitud" (por ejemplo, "promedio")? ¿Cómo lo detectarías y qué harías para que el programa no falle?
+Pasaba que `organizar_lista` daba `UnboundLocalError`: como el criterio no entraba en ningún `if`/`elif`, la variable `columnas_ordenadas` nunca se creaba y el `return` fallaba. Lo detecté probando con un rol inventado con criterio "promedio". Lo resolví agregando un `else` que avisa que el criterio no es válido y ordena por completitud. Elegí avisar y continuar, en lugar de lanzar un `ValueError`, porque el enunciado pide que el programa no falle y porque el usuario igual se entera del problema por el mensaje. La desventaja es que un error de configuración no corta la ejecución.
 
 8) ¿Qué cambiarías si por defecto se pide el informe debiera salir según uno de los roles?
-En la firma de la función se cambiaría el valor por defecto del parámetro: en lugar de def recorrer_columnas(rol=None):, se pondría def recorrer_columnas(rol="docente"): o el rol que se elija por defecto.
+Cambiaría la firma a `def recorrer_columnas(rol="docente")`, o mejor, definiría una constante `ROL_POR_DEFECTO = "docente"` y usaría `rol=ROL_POR_DEFECTO`. Con esto, `recorrer_columnas()` ya no muestra todas las columnas, sino las de ese rol. El informe general sigue disponible pasando `None` explícitamente (`recorrer_columnas(None)`), que cae en el `else`. La lógica interna no cambia.
