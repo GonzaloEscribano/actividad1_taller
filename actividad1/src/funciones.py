@@ -12,6 +12,7 @@ columnas = {
     "GDECCFR": {"tipo": "int", "completitud": 90}
 }
 
+
 roles = {
     "docente": {
         "columnas": ["EDAD", "REGION", "ANO4", "TRIMESTRE"],
@@ -31,6 +32,7 @@ roles = {
         "porcentaje_minimo": 60
     }
 }
+
 
 def buscar_columnas_rol(rol):
     """
@@ -52,6 +54,7 @@ def buscar_columnas_rol(rol):
     
     return columnas_rol, criterio, forma, porcentaje_minimo
 
+
 def organizar_lista(columnas_rol, criterio="completitud", forma=True, porcentaje_minimo=None):
     """
     Filtra las columnas por porcentaje mínimo de completitud (si corresponde) y luego las ordena según el criterio y la forma indicados.
@@ -64,6 +67,12 @@ def organizar_lista(columnas_rol, criterio="completitud", forma=True, porcentaje
 
     Devuelve una lista con los nombres de columnas filtrados y ordenados.
     """
+    inexistentes = list(filter(lambda col: col not in columnas, columnas_rol))
+    
+    if inexistentes:
+        print(f"Aviso: columnas inexistentes ignoradas: {inexistentes}")
+    columnas_rol = list(filter(lambda col: col in columnas, columnas_rol))
+    
     if porcentaje_minimo is not None:
         columnas_a_mostrar = list(filter(lambda col: columnas[col]["completitud"] >= porcentaje_minimo, columnas_rol))
     else:
@@ -79,6 +88,7 @@ def organizar_lista(columnas_rol, criterio="completitud", forma=True, porcentaje
     
     return columnas_ordenadas
 
+
 def formatear_columna(col):
     """
     Arma la línea de texto con la información de una columna.
@@ -91,6 +101,7 @@ def formatear_columna(col):
     info = columnas[col]
     return f"{col}: tipo {info['tipo']}, completitud {info['completitud']}%"
 
+
 def imprimir(columnas_ordenadas):
     """
     Muestra por pantalla la información de cada columna, una por línea, con su nombre, tipo de dato y porcentaje de completitud.
@@ -100,7 +111,8 @@ def imprimir(columnas_ordenadas):
     """
     lineas = map(formatear_columna, columnas_ordenadas)
     print("\n".join(lineas))
-    
+
+
 def recorrer_columnas(rol=None):
     """
     Filtra y muestra las columnas según el rol indicado, aplicando
