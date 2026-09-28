@@ -24,3 +24,9 @@ Pasaba que `organizar_lista` daba `UnboundLocalError`: como el criterio no entra
 
 8) ¿Qué cambiarías si por defecto se pide el informe debiera salir según uno de los roles?
 Cambiaría la firma a `def recorrer_columnas(rol="docente")`, o mejor, definiría una constante `ROL_POR_DEFECTO = "docente"` y usaría `rol=ROL_POR_DEFECTO`. Con esto, `recorrer_columnas()` ya no muestra todas las columnas, sino las de ese rol. El informe general sigue disponible pasando `None` explícitamente (`recorrer_columnas(None)`), que cae en el `else`. La lógica interna no cambia.
+
+## Modificación 1: rol auditor
+**Pedido:** agregar manualmente un rol "auditor" que vea todas las columnas ordenadas por nombre descendente.
+**Dónde:** diccionario `roles` en `src/funciones.py`. No se modificó ninguna función.
+**Cómo lo probé:** `recorrer_columnas("auditor")` en el notebook. Muestra las 11 columnas de TRIMESTRE a AGLOMERADO. Verifiqué también que el rol docente sigue funcionando igual.
+**Decisión:** listé las 11 columnas a mano, sin `porcentaje_minimo`, porque el auditor no filtra por completitud.

@@ -30,6 +30,11 @@ roles = {
         "criterio": "completitud",
         "forma": "A",
         "porcentaje_minimo": 60
+    },
+    "auditor" : {
+        "columnas" : ["PONDERA", "ESTADO", "CAT_OCUP", "EDAD", "REGION", "AGLOMERADO", "MAS_500", "ANO4", "TRIMESTRE", "ITF", "GDECCFR"],
+        "criterio" : "nombre",
+        "forma" : "B"
     }
 }
 
