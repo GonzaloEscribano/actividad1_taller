@@ -30,3 +30,9 @@ Cambiaría la firma a `def recorrer_columnas(rol="docente")`, o mejor, definirí
 **Dónde:** diccionario `roles` en `src/funciones.py`. No se modificó ninguna función.
 **Cómo lo probé:** `recorrer_columnas("auditor")` en el notebook. Muestra las 11 columnas de TRIMESTRE a AGLOMERADO. Verifiqué también que el rol docente sigue funcionando igual.
 **Decisión:** listé las 11 columnas a mano, sin `porcentaje_minimo`, porque el auditor no filtra por completitud.
+
+## Modificación 2: columna NIVEL_ED
+**Pedido:** agregar manualmente la columna NIVEL_ED de tipo int y de 88% de completitud.
+**Dónde:** diccionario `columnas` en `src/funciones.py`. No se modificó ninguna función.
+**Cómo lo probé:** ejecutando todo el notebook. Se termina mostrando esta columna solo cuando no se especifica el rol y en el rol auditor, ya que tiene todas las columnas.
+**Por qué:** los roles tienen listas de columnas escritas a mano, por lo que solo muestran lo que nombran. El informe sin rol usa `list(columnas)` y toma todas las que existen. Separar el catálogo de columnas de la configuración de roles evita que una columna nueva quede visible para un rol sin que nadie lo decida.

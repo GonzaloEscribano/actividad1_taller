@@ -9,7 +9,8 @@ columnas = {
     "ANO4": {"tipo": "int", "completitud": 100},
     "TRIMESTRE": {"tipo": "int", "completitud": 35},
     "ITF": {"tipo": "int", "completitud": 85},
-    "GDECCFR": {"tipo": "int", "completitud": 90}
+    "GDECCFR": {"tipo": "int", "completitud": 90},
+    "NIVEL_ED": {"tipo": "int", "completitud": 88}
 }
 
 
@@ -32,9 +33,9 @@ roles = {
         "porcentaje_minimo": 60
     },
     "auditor" : {
-        "columnas" : ["PONDERA", "ESTADO", "CAT_OCUP", "EDAD", "REGION", "AGLOMERADO", "MAS_500", "ANO4", "TRIMESTRE", "ITF", "GDECCFR"],
-        "criterio" : "nombre",
-        "forma" : "B"
+        "columnas": columnas.keys(),
+        "criterio": "nombre",
+        "forma": "B"
     }
 }
 
